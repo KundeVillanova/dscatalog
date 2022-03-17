@@ -1,11 +1,21 @@
 package com.springcamp.dscatalog.entities;
 
-import java.io.Serializable; //possa ser convertido em sequencia de bytes
+import java.io.Serializable;
 import java.util.Objects;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+@Entity
+@Table(name = "tb_category")
 public class Category implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private long ID;
 	private String name;
 	
@@ -46,6 +56,4 @@ public class Category implements Serializable {
 		Category other = (Category) obj;
 		return ID == other.ID;
 	}
-	
-	
 }
