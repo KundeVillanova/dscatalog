@@ -1,12 +1,15 @@
 package com.springcamp.dscatalog.services;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
 import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.springcamp.dscatalog.dto.CategoryDTO;
@@ -14,16 +17,18 @@ import com.springcamp.dscatalog.entities.Category;
 import com.springcamp.dscatalog.repositories.CategoryRepository;
 import com.springcamp.dscatalog.services.exceptions.DatabaseException;
 import com.springcamp.dscatalog.services.exceptions.ResourceNotFoundException;
+
 //criação dos métodos
+
 @Service
 public class CategoryServices {
 	@Autowired
 	private CategoryRepository repository;
 	
 	@Transactional (readOnly = true)
-	public List<CategoryDTO> findAll(){	
-		List<Category> list = repository.findAll();		
-		return list.stream().map(x -> new CategoryDTO(x)).collect(Collectors.toList());	
+	public Page<CategoryDTO> findAllPaged(PageRequest pageRequest){	
+		Page<Category> list = repository.findAll(pageRequest);		
+		return list.map(x -> new CategoryDTO(x));	
 	}
 	
 	@Transactional (readOnly = true)
