@@ -4,7 +4,7 @@ import java.io.Serializable;
 import com.springcamp.dscatalog.entities.Category;
 
 public class CategoryDTO implements Serializable {
-
+	//dto é para trafego de dados
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
